@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+	<h:panelGroup layout="block" class="divwhite">
+
+		<h1>#{msg['Actis']}</h1>
+		<br />
+		<h:panelGroup>
+			<!-- classe Tabela Atividades inicio -->
+			<h:form id="formAllactivities">
+				<p:growl id="mensagens" showDetail="false" closable="true"
+					life="10000" />
+				<b:dataTable id="allActivitiesTable"
+					style-class="tableTxt txtCenter"
+					value="#{activities.beginActivity}" var="activity"
+					fixedHeader="true" responsive="true" scroll-size="400px"
+					scroll-x="false" page-length="5" page-length-menu="5,10,15"
+					searching="true" customLangUrl="#{msg['Tabelas']}">
+					<b:dataTableColumn style-class="txtCenter" label="#{msg['Acti']}"
+						value="#{activity.nameActivity}" />
+					<b:dataTableColumn style-class="txtCenter"
+						label="#{msg['Act_typ1']}"
+						value="#{activity.typeActivity.typeActivity}" />
+					<b:dataTableColumn style-class="txtCenter" label="#{msg['State']}"
+						value="#{activity.stateActivity.stateActi}" />
+					<b:dataTableColumn style-class="txtCenter"
+						label="#{msg['TimeLeft']}" value="#{activity.timeLeft}" />
+					<b:dataTableColumn style-class="txtCenter"
+						label="#{msg['TimePlan']}" value="#{activity.timePlan}" />
+					<b:dataTableColumn style-class="txtCenter"
+						label="#{msg['TimeSpend']}" value="#{activity.timeSpend}" />
+					<b:dataTableColumn style-class="txtCenter" label="#{msg['View']}">
+						<p:commandButton class="viewBtn" value=" "
+							action="activityViewArea.xhtml?faces-redirect=true" >
+							<f:actionListener
+								binding="#{activities.viewActivityLoad(activity)}" />
+						</p:commandButton>
+					</b:dataTableColumn>
+					<b:dataTableColumn style-class="txtCenter" label="#{msg['Edit']}">
+						<p:commandButton class="editBtn" value=" "
+							action="activityEditArea.xhtml?faces-redirect=true" actionListener="#{activities.editActivityLoad(activity)}" rendered="#{userImpl.gestorUser or userImpl.directorUser}">
+					
+						</p:commandButton>
+					</b:dataTableColumn>
+					<b:dataTableColumn style-class="txtCenter"
+						label="#{msg['Reportar']}">
+						<p:commandButton value=" " class="reportBtn"
+							oncomplete="$('#modalWork').modal('show')"
+							action="registWork.xhtml" update="reportWorkForm">
+							<f:actionListener
+								binding="#{activities.loadDataForReport(activity)}" />
+						</p:commandButton>
+					</b:dataTableColumn>
+				</b:dataTable>
+			</h:form>
+
+		</h:panelGroup>
+	</h:panelGroup>
+
+
+	
+</ui:composition>
+</html>

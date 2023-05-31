@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+
+	<h1>#{msg['Indicators_EVM']}</h1>
+	<h:form id="formReportsIndicators">
+		<p:growl id="messages" showDetail="false" closable="true" life="10000" />
+		<h:panelGroup layout="block" class="row">
+			<h:panelGroup layout="block" class="space10">
+			</h:panelGroup>
+
+					<b:dataTable id="reportsIndicatorsTable"
+						style-class="tableTxt txtCenter"
+						value="#{reportsIndicators.projectsWithCPISPIs}" var="reportEVM"
+						fixedHeader="true" responsive="true" scroll-size="400px"
+						scroll-x="false" page-length="5" page-length-menu="5,10,15"
+						searching="true" customLangUrl="#{msg['Tabelas']}">
+						<b:dataTableColumn style-class="txtCenter" label="#{msg['Proj']}"
+							value="#{reportEVM.projectCode}" />
+
+						<b:dataTableColumn style-class="txtCenter"
+							label="#{msg['StartDate']}">
+							<h:outputText value="#{reportEVM.beginDate}">
+								<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</b:dataTableColumn>
+						<b:dataTableColumn style-class="txtCenter"
+							label="#{msg['EndDate']}">
+							<h:outputText value="#{reportEVM.endDate}">
+								<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</b:dataTableColumn>
+						<b:dataTableColumn style-class="txtCenter"
+							label="#{msg['Indicators_pv']}" value="#{reportEVM.budget}" />
+						<b:dataTableColumn style-class="txtCenter"
+							label="#{msg['Indicators_ac']}" value="#{reportEVM.ac}" />
+						<b:dataTableColumn style-class="txtCenter"
+							label="#{msg['Indicators_ev']}" value="#{reportEVM.ev}" />
+						<b:dataTableColumn style-class="txtCenter"
+							label="#{msg['Indicators_cv']}" value="#{reportEVM.cv}" />
+						<b:dataTableColumn style-class="txtCenter"
+							label="#{msg['Indicators_sv']}" value="#{reportEVM.sv}" />
+						<b:dataTableColumn style-class="txtCenter"
+							label="#{msg['Indicators_spi']}" value="#{reportEVM.spi}" />
+						<b:dataTableColumn style-class="txtCenter"
+							label="#{msg['Indicators_cpi']}" value="#{reportEVM.cpi}" />
+					</b:dataTable>
+			
+		
+
+		</h:panelGroup>
+		
+							<h:panelGroup>
+			<p:dataTable style="display:none" var="report" id="reportsIndTable"
+				value="#{reportsIndicators.projectsWithCPISPIs}">
+				<p:column headerText="#{msg['Proj_code1']}">
+					<h:outputText value="#{report.projectCode}" />
+				</p:column>
+				<p:column headerText="#{msg['StartDate']}">
+					<h:outputText value="#{report.beginDate}" >
+					<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="#{msg['EndDate']}">
+					<h:outputText value="#{report.endDate}" >
+					<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="#{msg['Indicators_pv']}">
+					<h:outputText value="#{report.budget}" />
+				</p:column>
+				<p:column headerText="#{msg['Indicators_ac']}">
+					<h:outputText value="#{report.ac}" />
+				</p:column>
+				<p:column headerText="#{msg['Indicators_ev']}">
+					<h:outputText value="#{report.ev}" />
+				</p:column>
+				<p:column headerText="#{msg['Indicators_cv']}">
+					<h:outputText value="#{report.cv}" />
+				</p:column>
+				<p:column headerText="#{msg['Indicators_sv']}">
+					<h:outputText value="#{report.sv}" />
+				</p:column>
+				<p:column headerText="#{msg['Indicators_spi']}">
+					<h:outputText value="#{report.spi}" />
+				</p:column>
+				<p:column headerText="#{msg['Indicators_cpi']}">
+					<h:outputText value="#{report.cpi}" />
+				</p:column>
+
+			</p:dataTable>
+
+		</h:panelGroup>
+			<h3>#{msg['exportar']}</h3>
+			<h:panelGroup layout="block" class="space5"></h:panelGroup>
+		<h:commandLink>
+			<p:graphicImage value="/resources/images/xlsx.png" />
+
+			<p:dataExporter type="xls" target="reportsIndTable"
+				fileName="reportsInd" pageOnly="true" />
+		</h:commandLink>
+
+		<h:commandLink>
+			<p:graphicImage value="/resources/images/pdf1.png" />
+			<p:dataExporter type="pdf" target="reportsIndTable"
+				fileName="reportsInd" pageOnly="true" />
+		</h:commandLink>
+
+		<h:commandLink>
+			<p:graphicImage value="/resources/images/csv1.png" />
+			<p:dataExporter type="csv" target="reportsIndTable"
+				fileName="reportsInd" pageOnly="true" />
+		</h:commandLink>
+
+		<h:commandLink>
+			<p:graphicImage value="/resources/images/xml1.png" />
+			<p:dataExporter type="xml" target="reportsIndTable"
+				fileName="reportsInd" pageOnly="true" />
+		</h:commandLink>	
+	</h:form>
+</ui:composition>
+</html>

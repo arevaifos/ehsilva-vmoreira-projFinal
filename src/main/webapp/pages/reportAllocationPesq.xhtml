@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+
+	<h1>#{msg['Allocators_reports']}</h1>
+	<h:form id="formReportsAllocationPesq">
+	<p:growl id="messages" showDetail="false" closable="true"
+					life="10000" />
+		<h:panelGroup layout="block" class="row">
+			<h:panelGroup layout="block" class="space10">
+			</h:panelGroup>
+			<h:panelGroup layout="block" class="col-md-12">
+
+				
+				<h:panelGroup layout="block" class="col-md-3">
+					<h:outputLabel value="#{msg['Proj']}" styleClass="textLabel" />
+					<h:panelGroup layout="block" class="space1"></h:panelGroup>
+					<h:selectOneMenu id="project"
+						value="#{reportsAllocations.codeProjectSelect}"
+						styleClass=" inputDiv2 mymenu" required="true">
+						<f:selectItem itemValue="#{msg['Proj_selecionar']}" />
+						<f:selectItems id="project1"
+							value="#{reportsAllocations.codeProjects}" var="project"
+							itemLabel="#{project}" itemValue="#{project}" />
+					</h:selectOneMenu>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" class="col-md-3">
+					<h:outputLabel value="#{msg['StartDate']}" styleClass="textLabel" />
+					<h:panelGroup layout="block" class="space1"></h:panelGroup>
+					<p:calendar styleClass="calendar"
+						value="#{reportsAllocations.beginDate}" required="true"
+						locale="#{internationalization.locale}" navigator="false">
+					</p:calendar>
+				</h:panelGroup>
+				<h:panelGroup layout="block" class="col-md-3">
+					<h:outputLabel value="#{msg['EndDate']}" styleClass="textLabel" />
+					<h:panelGroup layout="block" class="space1"></h:panelGroup>
+					<p:calendar styleClass="calendar"
+						value="#{reportsAllocations.endDate}" required="true"
+						locale="#{internationalization.locale}" navigator="false">
+					</p:calendar>
+				</h:panelGroup>
+				<h:panelGroup layout="block" class="col-md-3">
+					<h:panelGroup layout="block" class="space"></h:panelGroup>
+					<p:commandButton id="btnPesquisarReport" action="#{timelineGraphs.refreshGraphic()}"
+						actionListener="#{reportsAllocations.refreshReports()}"
+						value="#{msg['Search']}" icon="fa fa-fw fa-search"
+						styleClass="btn botaoPeq" update="  reportForm formReportsAllocationTable">
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup layout="block" class="space2"></h:panelGroup>
+
+			</h:panelGroup>
+		</h:panelGroup>
+	</h:form>
+</ui:composition>
+</html>

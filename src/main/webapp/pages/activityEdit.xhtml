@@ -1,0 +1,401 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+
+	<h:panelGroup layout="block" class="col-md-12 divwhite">
+
+		<h:panelGroup layout="block">
+
+			<h1>#{msg['EAct_tit1']}</h1>
+			<br />
+			<h:panelGroup id="editActivity">
+				<!-- classe lado esquerdo do ecra -->
+				<h:form id="formeditActivity">
+					<p:growl id="mensagensEdit" showDetail="false" closable="true"
+						life="10000" />
+					<!-- <h:messages showDetail="true" showSummary="false" /> -->
+					<h:panelGroup layout="block" class="row">
+
+						<h:panelGroup layout="block" class="col-md-3">
+							<h:outputLabel value="#{msg['Proj']}" styleClass="textLabel" />
+							<h:panelGroup layout="block" class="space1"></h:panelGroup>
+							<h:selectOneMenu id="project" value="#{activities.projectString}"
+								disabled="true" styleClass=" inputDiv2 mymenu" required="true">
+								<f:selectItem itemValue="#{activities.projectString}" />
+								<f:selectItems id="project1"
+									value="#{activities.allProjectsString}" var="project" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" class="col-md-3">
+							<h:outputLabel value="#{msg['Act_typ1']}" styleClass="textLabel" />
+
+							<h:panelGroup layout="block" class="space1"></h:panelGroup>
+							<h:selectOneMenu id="newActivitiesType"
+								disabled="#{activities.secondStepToSave}"
+								value="#{activities.newActivitiesTypeString}"
+								styleClass=" inputDiv2 mymenu" required="true">
+								<f:selectItem itemValue="#{msg['Act_typ2']}" />
+								<f:selectItems id="newAtivitiesType1"
+									value="#{activities.allActivitiesTypeString}"
+									itemValue="#{activitiesType}" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+
+
+						<h:panelGroup layout="block" class="col-md-3">
+							<h:outputLabel value="#{msg['StartDate']}" styleClass="textLabel" />
+							<h:panelGroup layout="block" class="space1"></h:panelGroup>
+							<p:calendar styleClass="calendar inputDiv2"
+								disabled="#{activities.firstStepToSave}"
+								value="#{activities.startDate}" disabledWeekends="true"
+								required="true" locale="#{internationalization.locale}"
+								navigator="false">
+							</p:calendar>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" class="col-md-3">
+							<h:outputLabel value="#{msg['EndDate']}" styleClass="textLabel" />
+
+							<h:panelGroup layout="block" class="space1"></h:panelGroup>
+							<p:calendar styleClass="calendar inputDiv2"
+								value="#{activities.endDate}"
+								disabled="#{activities.firstStepToSave}" disabledWeekends="true"
+								required="true" locale="#{internationalization.locale}"
+								navigator="false">
+							</p:calendar>
+						</h:panelGroup>
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" class="space5">
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="row">
+						<h:panelGroup layout="block" class="col-md-3">
+							<h:outputLabel for="inputNewName" value="#{msg['Act_tit']}"
+								styleClass="textLabel" />
+
+							<h:panelGroup layout="block" class="space1"></h:panelGroup>
+							<h:inputText id="inputNewName" value="#{activities.inputNewName}"
+								disabled="#{activities.secondStepToSave}"
+								a:placeholder="#{msg['Act_name2']}"
+								styleClass="form-control inputDiv2">
+								<!-- <f:validateLength minimum="3" maximum="25" /> -->
+							</h:inputText>
+
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" class="col-md-3">
+							<h:outputLabel for="inputNewActiDsc" value="#{msg['Act_dsc1']}"
+								styleClass="textLabel" />
+
+							<h:panelGroup layout="block" class="space1"></h:panelGroup>
+							<h:inputText id="inputNewActiDsc"
+								value="#{activities.inputNewActiDsc}"
+								a:placeholder="#{msg['Act_dsc2']}"
+								styleClass="form-control inputDiv2"
+								disabled="#{activities.firstStepToSave}">
+								<!-- 	<f:validateLength minimum="3" maximum="50" /> -->
+							</h:inputText>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" class="col-md-3">
+							<h:outputLabel value="#{msg['State']}" styleClass="textLabel" />
+							<h:panelGroup layout="block" class="space1"></h:panelGroup>
+							<h:selectOneMenu id="activityState"
+								value="#{activities.stateActivityString}"
+								disabled="#{activities.firstStepToSave}"
+								styleClass=" inputDiv2 mymenu" required="true">
+								<f:selectItem itemValue="#{msg['State']}" />
+								<f:selectItems id="stateActivity"
+									value="#{activities.stateActivityStringArray}" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+
+
+						<h:panelGroup layout="block" class="col-md-3">
+							<h:outputLabel value="#{msg['Act_pre']}" styleClass="textLabel" />
+
+							<h:panelGroup layout="block" class="space1"></h:panelGroup>
+							<h:panelGroup layout="block" class="col-md-9">
+								<h:outputLabel value="#{msg['Sim']}" styleClass="textLabel" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" class="col-md-3">
+								<h:selectBooleanCheckbox value="#{activities.hasPrecedence}"
+									id="hasPrecedente" disabled="#{activities.hasPrecedence}">
+								</h:selectBooleanCheckbox>
+							</h:panelGroup>
+						</h:panelGroup>
+
+
+						<h:panelGroup layout="block" class="space5"></h:panelGroup>
+						<h:panelGroup layout="block" class="row">
+							<h:panelGroup layout="block" class="col-md-12">
+								<h:panelGroup layout="block" class="col-md-3">
+									<h:outputLabel for="timePlan" value="#{msg['hoursPlan']}"
+										styleClass="textLabel" />
+									<h:panelGroup layout="block" class="space1"></h:panelGroup>
+									<h:inputText id="timePlan" a:placeholder="Digite valor"
+										styleClass="form-control inputDiv2"
+										value="#{activities.timePlan}">
+										<!-- <f:convertNumber integerOnly="true"
+											locale="#{internationalization.locale}" /> -->
+
+									</h:inputText>
+								</h:panelGroup>
+
+								<h:panelGroup layout="block" class="col-md-3">
+									<h:outputLabel for="timeSpend" value="#{msg['TimeSpend']}"
+										styleClass="textLabel" />
+									<h:panelGroup layout="block" class="space1"></h:panelGroup>
+									<h:inputText id="timeSpend" a:placeholder="Digite valor"
+										styleClass="form-control  inputDiv2"
+										value="#{activities.timeSpend}">
+										<!-- 	<f:convertNumber integerOnly="true"
+											locale="#{internationalization.locale}" /> -->
+
+									</h:inputText>
+								</h:panelGroup>
+								<h:panelGroup layout="block" class="col-md-3">
+									<h:outputLabel for="timeLeft" value="#{msg['TimeLeft']}"
+										styleClass="textLabel" />
+									<h:panelGroup layout="block" class="space1"></h:panelGroup>
+									<h:inputText id="timeLeft" a:placeholder="Digite valor"
+										styleClass="form-control inputDiv2"
+										value="#{activities.timeLeft}"
+										disabled="#{activities.firstStepToSave}">
+										<!-- <f:convertNumber integerOnly="true"
+											locale="#{internationalization.locale}" /> -->
+
+									</h:inputText>
+								</h:panelGroup>
+								<h:panelGroup layout="block" class="col-md-3">
+
+									<h:panelGroup layout="block" class="space15">
+										<h:outputText value="xxxx" styleClass="colorWhite" />
+									</h:panelGroup>
+									<h:panelGroup layout="block" class="col-md-6">
+										<p:commandButton value="#{msg['Btn_back']}"
+											disabled="#{activities.firstStepToSave}"
+											action="activitiesArea.xhtml?faces-redirect=true"
+											actionListener="{activities.returnFirstEdit()}"
+											styleClass="btn botaoPeq" ajax="false">
+											<p:ajax
+												update="myPrecedencesForm:myPrecedences precedencesForm:precedences formeditActivity btnPrecedenceForm employerForm"></p:ajax>
+										</p:commandButton>
+									</h:panelGroup>
+
+									<h:panelGroup layout="block" class="col-md-6">
+										<p:commandButton id="btnSeguinte"
+											actionListener="#{activities.editActivitySave()}"
+											value="#{msg['Seguinte']}" styleClass="btn botaoPeq"
+											disabled="#{activities.firstStepToSave}"
+											update="myPrecedencesForm:myPrecedences precedencesForm:precedences formeditActivity btnPrecedenceForm employerForm">
+										</p:commandButton>
+									</h:panelGroup>
+								</h:panelGroup>
+							</h:panelGroup>
+
+						</h:panelGroup>
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="space15">
+					</h:panelGroup>
+
+				</h:form>
+
+				<h:panelGroup layout="block" class="space5">
+				</h:panelGroup>
+
+				<h:form id="employerForm">
+					<b:label styleClass="badgetActivity" value="#{msg['Resp']}"
+						visible="xs...lg" rendered="#{activities.firstStepToSave}" />
+
+					<h:panelGroup id="employerGroup" layout="block" class="row"
+						rendered="#{activities.firstStepToSave}">
+						<h:panelGroup layout="block" class="col-md-6">
+							<h:outputLabel value="#{msg['Name1']}" styleClass="textLabel" />
+							<h:panelGroup layout="block" class="space1"></h:panelGroup>
+							<h:selectOneMenu id="name" value="#{activities.employerString}"
+								disabled="#{activities.secondStepToSave}"
+								styleClass=" inputDiv2 mymenu">
+								<p:ajax listener="#{activities.onUserChange()}"
+									update="percentageSpinner"></p:ajax>
+								<f:selectItem itemValue="#{activities.employerString}" />
+								<f:selectItems id="name1"
+									value="#{activities.allEmployersString}">
+								</f:selectItems>
+							</h:selectOneMenu>
+						</h:panelGroup>
+
+
+
+						<h:panelGroup layout="block" class="col-md-3">
+							<h:outputLabel value="#{msg['Cost']}" styleClass="textLabel" />
+
+							<h:panelGroup layout="block" class="space1"></h:panelGroup>
+							<h:inputText id="cost" a:placeholder="0.00"
+								disabled="#{activities.secondStepToSave}"
+								styleClass="form-control" value="#{activities.cost}">
+								<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+									minIntegerDigits="1" type="number"
+									locale="#{internationalization.locale}" />
+
+							</h:inputText>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" class="col-md-3">
+							<h:outputLabel value="#{msg['Percentage']}"
+								styleClass="textLabel" />
+
+							<h:panelGroup layout="block" class="space1"></h:panelGroup>
+
+
+							<p:spinner id="percentageSpinner"
+								value="#{activities.percentageFloat}" min="0"
+								max="#{activities.rangeMaxPercentage}"
+								disabled="#{activities.secondStepToSave}"
+								styleClass="form-control" required="true" />
+
+
+						</h:panelGroup>
+
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" class="space15"></h:panelGroup>
+					<h:panelGroup layout="block" class="row">
+						<h:panelGroup layout="block" class="col-md-12">
+							<h:panelGroup layout="block" class="col-md-8">
+							</h:panelGroup>
+
+							<h:panelGroup layout="block" class="col-md-2">
+								<p:commandButton value="#{msg['Btn_back']}"
+									rendered="#{activities.firstStepToSave}"
+									disabled="#{activities.secondStepToSave}"
+									action="#{activities.returnFirstEdit()}"
+									styleClass="btn botaoPeq" ajax="false">
+								</p:commandButton>
+							</h:panelGroup>
+
+							<h:panelGroup layout="block" class="col-md-2">
+								<p:commandButton
+									actionListener="#{activities.editActivitySave()}"
+									rendered="#{activities.showNextBotton}"
+									disabled="#{activities.secondStepToSave}"
+									value="#{msg['Seguinte']}" styleClass="btn botaoPeq"
+									update="myPrecedencesForm:myPrecedences precedencesForm:precedences formeditActivity btnPrecedenceForm employerForm">
+								</p:commandButton>
+
+								<p:commandButton
+									action="activitiesArea.xhtml?faces-redirect=true"
+									actionListener="#{activities.editActivitySave()}"
+									rendered="#{activities.showSaveBotton}"
+									disabled="#{activities.secondStepToSave}"
+									value="#{msg['Btn_save']}" styleClass="btn botaoPeq"
+									update="myPrecedencesForm:myPrecedences precedencesForm:precedences formeditActivity btnPrecedenceForm employerForm">
+								</p:commandButton>
+
+							</h:panelGroup>
+						</h:panelGroup>
+
+					</h:panelGroup>
+				</h:form>
+
+
+				<h:panelGroup layout="block" class="row" id="precedencesGroup">
+					<h:panelGroup layout="block" class="col-md-12">
+						<h:panelGroup layout="block" class="space10"></h:panelGroup>
+
+						<h:form id="precedencesForm">
+							<h:panelGroup layout="block" class="col-md-6" id="precedences">
+
+								<b:label styleClass="badgetActivity" value="#{msg['Actis']}"
+									visible="xs...lg" rendered="#{activities.showPrecedencesArea}" />
+								<h:panelGroup layout="block" class="space10"
+									rendered="#{activities.hasPrecedence}"></h:panelGroup>
+								<b:dataTable id="allActivitiesTable"
+									style-class="tableTxt txtCenter"
+									value="#{activities.noPrecedentesActivitiesProject}"
+									var="activity" fixedHeader="true" responsive="true"
+									customLangUrl="#{msg['Tabelas']}" searching="true"
+									rendered="#{activities.showPrecedencesArea}">
+									<b:dataTableColumn style-class="txtCenter"
+										label="#{msg['Acti']}" value="#{activity.nameActivity}" />
+									<b:dataTableColumn style-class="txtCenter"
+										label="#{msg['State']}"
+										value="#{activity.stateActivity.stateActi}" />
+									<b:dataTableColumn style-class="txtCenter"
+										label="#{msg['StartDate']}" value="#{activity.beginDateact}">
+									</b:dataTableColumn>
+									<b:dataTableColumn style-class="txtCenter"
+										label="#{msg['EndDate']}" value="#{activity.endDateact}" />
+									<b:dataTableColumn style-class="txtCenter"
+										label="#{msg['Btn_add']}">
+										<p:commandButton class="addBtn" value=" "
+											actionListener="#{activities.addPrecedences(activity)}"
+											update=" myPrecedencesForm:myPrecedences precedencesForm:allActivitiesTable">
+										</p:commandButton>
+									</b:dataTableColumn>
+								</b:dataTable>
+							</h:panelGroup>
+						</h:form>
+
+
+						<h:form id="myPrecedencesForm">
+							<h:panelGroup id="myPrecedences" layout="block" class="col-md-6">
+								<b:label styleClass="badgetActivity" value="#{msg['Act_pre']}"
+									visible="xs...lg" rendered="#{activities.showPrecedencesArea}" />
+								<h:panelGroup layout="block" class="space10"
+									rendered="#{activities.showPrecedencesArea}"></h:panelGroup>
+								<b:dataTable id="myActivitiesTable"
+									customLangUrl="#{msg['Tabelas']}"
+									style-class="tableTxt txtCenter"
+									value="#{activities.precedentesActivitiesProject}"
+									var="myActivity" fixedHeader="true" responsive="true"
+									searching="true" rendered="#{activities.showPrecedencesArea}">
+									<b:dataTableColumn style-class="txtCenter"
+										label="#{msg['Acti']}" value="#{myActivity.nameActivity}" />
+									<b:dataTableColumn style-class="txtCenter"
+										label="#{msg['State']}"
+										value="#{myActivity.stateActivity.stateActi}" />
+									<b:dataTableColumn style-class="txtCenter"
+										label="#{msg['StartDate']}" value="#{myActivity.beginDateact}" />
+									<b:dataTableColumn style-class="txtCenter"
+										label="#{msg['EndDate']}" value="#{myActivity.endDateact}" />
+									<b:dataTableColumn style-class="txtCenter"
+										label="#{msg['Btn_back']}">
+										<p:commandButton class="cancelBtn" value=" "
+											actionListener="#{activities.removePrecedences(myActivity)}"
+											update="precedencesForm:allActivitiesTable myPrecedencesForm:myPrecedences">
+										</p:commandButton>
+									</b:dataTableColumn>
+								</b:dataTable>
+							</h:panelGroup>
+						</h:form>
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+				<h:panelGroup layout="block" class="row">
+					<h:panelGroup layout="block" class="col-md-12">
+						<h:form id="btnPrecedenceForm">
+							<p:commandButton id="btnPrecedence"
+								action="activitiesArea.xhtml?faces-redirect=true"
+								actionListener="#{activities.editActivitySave()}"
+								rendered="#{activities.showPrecedencesArea}"
+								value="#{msg['Btn_save']}" styleClass="btn botaoPeq"
+								update="myPrecedencesForm:myPrecedences precedencesForm:precedences formeditActivity btnPrecedenceForm employerForm">
+							</p:commandButton>
+						</h:form>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+	</h:panelGroup>
+</ui:composition>
+</html>

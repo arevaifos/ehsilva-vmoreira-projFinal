@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	
+	<persistence-unit name="ehsilva-vmoreira-projFinal">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		
+		<jta-data-source>java:/projectmanagement</jta-data-source>
+		<class>pt.uc.dei.model.Activity_historic</class>
+		<class>pt.uc.dei.model.Activity</class>
+		<class>pt.uc.dei.model.Allocation</class>
+		<class>pt.uc.dei.model.Attachment</class>
+		<class>pt.uc.dei.model.Function</class>
+		<class>pt.uc.dei.model.Holiday</class>
+		<class>pt.uc.dei.model.Project</class>
+		<class>pt.uc.dei.model.Role</class>
+		<class>pt.uc.dei.model.State_activity</class>
+		<class>pt.uc.dei.model.State_project</class>
+		<class>pt.uc.dei.model.Type_activity</class>
+		<class>pt.uc.dei.model.User</class>
+
+		<properties>
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="true"/>
+		</properties>
+	</persistence-unit>
+</persistence>
+ 

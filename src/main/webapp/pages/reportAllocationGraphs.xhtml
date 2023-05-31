@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+
+	<h2>#{msg['Allocators_gaphs']}</h2>
+	<h:panelGroup layout="block" class="row">
+	
+		<h:panelGroup layout="block" class="space10">
+		</h:panelGroup>
+		<h:panelGroup layout="block" class="col-md-12">
+			<h:form id="reportForm">
+				<h:panelGroup layout="block" class="col-md-1">
+				</h:panelGroup>
+				<h:panelGroup id="graphs" layout="block" class="col-md-10">
+
+					<p:timeline id="timelineSecond" value="#{timelineGraphs.model}"
+						widgetVar="timelineSecondWdgt" eventMargin="0" eventMarginAxis="0"
+						responsive="true" locale="#{internationalization.locale}">
+						<p:ajax event="rangechange" oncomplete="onrangechange2()" />
+					</p:timeline>
+				</h:panelGroup>
+			</h:form>
+		</h:panelGroup>
+	</h:panelGroup>
+
+
+<style type="text/css">
+/* Custom styles for the Timeline */
+div.timeline-frame {
+	border-color: #670000;
+	border-radius: 5px;
+}
+
+div.timeline-axis {
+	border-color: #c4161c;
+	background-color: #efefef;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c4161c',
+		endColorstr='#670000') alpha(opacity = 100);
+	background: -webkit-gradient(linear, left top, left bottom, from(#c4161c),
+		to(#c4161c));
+	background: -moz-linear-gradient(top, #c4161c, #670000);
+	-khtml-opacity: 1;
+	-moz-opacity: 1;
+	opacity: 1;
+}
+
+div.timeline-groups-axis {
+	border-color: #c4161c;
+}
+
+div.timeline-groups-axis-onleft {
+	border-style: none solid none none;
+}
+
+div.timeline-axis-text {
+	color: white;
+}
+
+div.timeline-event {
+	color: white !important;
+	border-radius: 5px !important;
+}
+
+div.timeline-event-content {
+	padding: 5px;
+	text-shadow: none;
+}
+
+div.timeline-currenttime {
+	background-color: #FF1E29;
+	width: 2px; 
+	z-index:2;
+	}
+
+div.color{
+	background: #a0a0a0 none!important;
+/* background: -webkit-gradient(linear, left top, left bottom, from(#766a62),to(#a0a0a0)); */
+	border-color: #efefef!important; 
+}
+div.timeline-event-selected {
+	background: #766a62 none !important;
+	border-color: #efefef !important;
+}
+</style>
+	<script type="text/javascript">
+    function onrangechange1() {
+        var range = PF('timelineFirstWdgt').getVisibleRange();
+        PF('timelineSecondWdgt').setVisibleRange(range.start, range.end);
+    }
+ 
+    function onrangechange2() {
+        var range = PF('timelineSecondWdgt').getVisibleRange();
+        PF('timelineFirstWdgt').setVisibleRange(range.start, range.end);
+    }
+</script>
+</ui:composition>
+</html>

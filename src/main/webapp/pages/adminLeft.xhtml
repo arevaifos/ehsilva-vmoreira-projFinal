@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+	<h:panelGroup layout="block" class="col-md-8">
+		<h:panelGroup layout="block" class="divwhite">
+
+			<h1>#{msg['Admin_tit1']}</h1>
+			<br />
+			<h:panelGroup>
+				<!-- classe Tabela Users -->
+				<h:form id="userTableAdmin">
+			
+					<b:dataTable id="userTableA" style-class="tableTxt txtCenter"  clientWidth="auto"
+						value="#{admin.allUsers}" var="user" fixedHeader="true"
+						responsive="true" scroll-size="400px" scroll-x="false"
+						page-length="5" page-length-menu="5,10,15" searching="true"
+						customLangUrl="#{msg['Tabelas']}">
+						<b:dataTableColumn style-class="txtCenter"
+							value="#{user.isactive}" label="#{msg['Ative']}?" />
+						<b:dataTableColumn label="#{msg['Name1']}" style-class="txtCenter" value="#{user.name}" />
+						<b:dataTableColumn label="#{msg['Email1']}" style-class="txtCenter" value="#{user.email}" />
+						<b:dataTableColumn label="#{msg['Role']}" style-class="txtCenter" >
+							<ui:repeat var="name" value="#{user.roles}">
+								<b:label style-class="uiRepeatTag" value="#{name.role}"></b:label>
+							</ui:repeat>
+						</b:dataTableColumn>
+						<b:dataTableColumn style-class="txtCenter" label="#{msg['Edit']}">
+							<h:commandButton styleClass="editBtn"
+								action="adminArea.xhtml?faces-redirect=true"
+								actionListener="#{admin.loadUser(user.iduser)}"
+								rendered="#{admin.canEdit==false}">
+								<f:ajax render="userTableAdmin editPanel rolePanel"></f:ajax>
+							</h:commandButton>
+							<h:commandButton styleClass="editBtn2"
+								rendered="#{admin.canEdit==true}" 
+								actionListener="#{admin.canceleEditUser()}">
+								<f:ajax render="userTableAdmin editPanel rolePanel"></f:ajax>
+							</h:commandButton>
+						</b:dataTableColumn>
+					</b:dataTable>
+				</h:form>
+
+
+			</h:panelGroup>
+		</h:panelGroup>
+	</h:panelGroup>
+
+
+
+
+</ui:composition>
+</html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+
+
+<ui:composition>
+
+	<nav class="navbar navbar-default navbar-fixed-top nav-menu "> <h:panelGroup
+		class="container" layout="block">
+		<h:panelGroup class="navbar-header" layout="block">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+				aria-controls="navbar">
+				<span class="sr-only"> <!-- 				Toggle navigation -->
+				</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<!-- <a class="navbar-brand" href="#">PM</a> -->
+		</h:panelGroup>
+		<h:panelGroup id="navbar" layout="block"
+			class="navbar-collapse collapse dropGrande">
+
+			<ul class="nav navbar-nav">
+			<h:panelGroup layout="block" rendered="#{userImpl.begin}">
+				<li class="dropGrande"><a href="beginArea.xhtml">#{msg['Nav_inicio']}</a></li> </h:panelGroup>
+				<h:panelGroup layout="block"
+					rendered="#{userImpl.gestorUser or userImpl.directorUser or userImpl.userUser}">
+					<li class="dropdown"><a href="#"
+						class="dropdown-toggle dropdivider" data-toggle="dropdown"
+						role="button" aria-haspopup="true" aria-expanded="false">#{msg['Projs']}
+							<span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu dropdivider dropPeq">
+							<h:panelGroup layout="block" rendered="#{userImpl.directorUser}">
+								<li><a href="projectNew.xhtml">#{msg['Nav_NewProj']}</a></li>
+							</h:panelGroup>
+							<h:panelGroup layout="block"
+								rendered="#{userImpl.gestorUser or userImpl.directorUser or userImpl.userUser}">
+								<li><a href="projectsArea.xhtml">#{msg['Nav_ViewProj']}</a></li>
+							</h:panelGroup>
+
+							<h:panelGroup layout="block"
+								rendered="#{userImpl.gestorUser or userImpl.directorUser}">
+								<li><a href="activityNew.xhtml">#{msg['Nav_NewActi']}</a></li>
+
+							</h:panelGroup>
+							<h:panelGroup layout="block"
+								rendered="#{userImpl.gestorUser or userImpl.directorUser or userImpl.userUser}">
+								<li><a href="activitiesArea.xhtml">#{msg['Nav_ViewActi']}</a></li>
+							</h:panelGroup>
+
+						</ul></li>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block"
+					rendered="#{userImpl.gestorUser or userImpl.directorUser}">
+					<li class="dropdown "><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">#{msg['Reports']} <span class="caret"></span></a>
+						<ul class="dropdown-menu dropdivider dropPeq">
+							<h:panelGroup layout="block"
+								rendered="#{userImpl.directorUser or userImpl.gestorUser }">
+								<li><a href="reportAllocationArea.xhtml">#{msg['Allocs']}</a></li>
+							</h:panelGroup>
+							<h:panelGroup layout="block"
+								rendered="#{userImpl.directorUser or userImpl.gestorUser}">
+								<li><a href="reportIndicatorsArea.xhtml">#{msg['Indicators']}</a></li>
+							</h:panelGroup>
+						</ul></li>
+				</h:panelGroup>
+				<h:panelGroup layout="block" rendered="#{userImpl.adminUser}">
+					<li><a href="adminArea.xhtml">#{msg['Nav_admin']}</a></li>
+				</h:panelGroup>
+			</ul>
+			<h:panelGroup layout="block" class="col-md-2">
+				<h:form>
+					<p:commandButton class="calendarBtn" alt="calendar" value=" "
+						oncomplete="$('#myModal').modal('show')"
+						rendered="#{userImpl.adminUser}"></p:commandButton>
+
+
+				</h:form>
+			</h:panelGroup>
+
+
+
+			<h:panelGroup layout="block">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="padNavbar">
+						<div class="col-md-9">
+							#{msg['Nav_Greeting']}
+							<h:outputLabel value="#{userImpl.loggedUser.name}"
+								class="textLabel2" />
+							!
+						</div> <!--*****************************************************************-->
+						<!--*****************************************************************-->
+						<h:panelGroup layout="block" class="col-md-3">
+							<h:form>
+
+								<p:commandButton value=" "
+									oncomplete="$('#perfilModal').modal('show')"
+									styleClass="userBtn">
+									<f:actionListener binding="#{newUtl.getLoggedUser()}" />
+									<p:ajax update="formPerfil formFoto"></p:ajax>
+								</p:commandButton>
+							</h:form>
+						</h:panelGroup>
+
+					</li>
+					<!--*****************************************************************-->
+
+
+					<li><a aria-haspopup="false" aria-expanded="false"> <h:form>
+								<h:panelGrid columns="2">
+									<h:outputLabel id="idLingua" value="#{msg['Language']}  : "
+										styleClass="languageBoard" />
+									<h:selectOneMenu value="#{internationalization.locale}"
+										onchange="submit()" styleClass="menuLanguage"
+										valueChangeListener="#{internationalization.changeLocale}">
+										<f:selectItems value="#{internationalization.countries}" />
+									</h:selectOneMenu>
+								</h:panelGrid>
+
+							</h:form>
+					</a></li>
+					<li class="padNavbar"><h:form>
+							<p:commandLink value="#{msg['Nav_logout']}"
+								action="#{login.doLogout()}" type="button"
+								icon="ui-icon-extlink" styleClass="dropPeq textLabel pad10">
+							</p:commandLink>
+						</h:form></li>
+				</ul>
+
+			</h:panelGroup>
+			<!--/.nav-collapse -->
+		</h:panelGroup>
+	</h:panelGroup> </nav>
+
+
+
+	<!-- Modal Calendario de feriados-->
+
+	<h:panelGroup layout="block" class="modal fade" id="myModal"
+		tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<h:panelGroup layout="block" class="modal-dialog modal-md"
+			role="document">
+			<h:panelGroup layout="block" class="modal-content">
+				<h:panelGroup layout="block" class="modal-header">
+					<p:commandLink value="#{msg['Close']}" class="close closeText"
+						oncomplete="$('#myModal').modal('hide');" immediate="true">
+					</p:commandLink>
+					<!-- 	<h4 class="modal-title" id="Calendar">Calendar</h4> -->
+				</h:panelGroup>
+				<h:panelGroup layout="block" class="modal-body">
+					<h2>#{msg['Add_feriado']}</h2>
+					<h:panelGroup layout="block" class="space"></h:panelGroup>
+					<h:panelGroup layout="block" class="row">
+						<h:panelGroup layout="block" class="col-md-12">
+
+							<h:panelGroup layout="block" class="col-md-4">
+								<h:form id="calendarioHolidayForm">
+									<!-- **************DESIGNAÇÃO DO FERIADO******************* -->
+									<h:outputLabel for="dscHoliday" value="#{msg['Dsc']}"
+										styleClass="textLabel" />
+
+									<h:inputText id="dscHoliday" a:placeholder="#{msg['Dsc']}"
+										styleClass="form-control inputDiv2"
+										value="#{holidays.dscHoliday}" />
+
+									<!-- **************DATA DO FERIADO******************* -->
+									<h:outputLabel for="holiday" value="#{msg['Data']}"
+										styleClass="textLabel" />
+									<p:calendar id="holiday" styleClass="calendar"
+										value="#{holidays.holiday}" disabledWeekends="false"
+										required="true" locale="#{internationalization.locale}"
+										navigator="false" />
+									<!-- **************PERIOCIDADE DO FERIADO******************* -->
+									<h:panelGroup layout="block" class="space5"></h:panelGroup>
+									<h:outputLabel styleClass="textLabel" for="annualHoliday"
+										value="#{msg['Anual']} ?   " />
+									<h:selectBooleanCheckbox value="#{holidays.annualHoliday}"
+										id="annualHoliday">
+									</h:selectBooleanCheckbox>
+
+									<h:panelGroup layout="block" class="space"></h:panelGroup>
+
+									<p:commandButton actionListener="#{holidays.saveHoliday()}"
+										value="#{msg['Btn_add']}" styleClass="btn botaoPeq"
+										update="holidayTableForm:holidayTable calendarioHolidayForm:holiday calendarioHolidayForm:annualHoliday calendarioHolidayForm:dscHoliday ">
+									</p:commandButton>
+								</h:form>
+							</h:panelGroup>
+
+
+							<h:panelGroup layout="block" class="col-md-8">
+								<h:form id="holidayTableForm">
+									<b:dataTable id="holidayTable" value="#{holidays.allHolidays}"
+										var="holiday" style-class="tableTxt txtCenter"
+										searching="false" fixedHeader="true" responsive="true"
+										scroll-x="false" paginated="true" info="false"
+										customLangUrl="#{msg['Tabelas']}" page-length="5"
+										page-length-menu="5,10,15" footer-style="footerBoosfaces">
+										<b:dataTableColumn style-class="txtCenter"
+											value="#{holiday.dateHoliday}" label="#{msg['Data']}" />
+										<b:dataTableColumn label="#{msg['Dsc']}"
+											style-class="txtCenter" value="#{holiday.description}" />
+										<b:dataTableColumn label="#{msg['Anual']}"
+											style-class="txtCenter" value="#{holiday.isAnual}" />
+
+									</b:dataTable>
+								</h:form>
+							</h:panelGroup>
+						</h:panelGroup>
+
+					</h:panelGroup>
+
+				</h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+	</h:panelGroup>
+
+
+	<!-- FIM Modal Calendario de feriados-->
+
+
+
+
+	<!-- Modal edit my profil -->
+
+
+	<h:panelGroup layout="block" class="modal fade" id="perfilModal"
+		tabindex="-1" role="dialog" aria-labelledby="perfilModalLabel">
+		<h:panelGroup layout="block" class="modal-dialog modal-lg"
+			role="document">
+			<h:panelGroup layout="block" class="modal-content">
+				<h:panelGroup layout="block" class="modal-header">
+					<p:commandLink value="#{msg['Close']}" class="close closeText"
+						oncomplete="$('#perfilModal').modal('hide');" immediate="true">
+					</p:commandLink>
+				</h:panelGroup>
+				<h:panelGroup layout="block" class="modal-body">
+					<h:panelGroup layout="block" class="row">
+						<h:panelGroup layout="block" class="col-md-12">
+
+
+
+							<h:panelGroup layout="block" class="col-md-6 col-sm-6 col-xs-10">
+
+
+								<h1>#{msg['editUtl_tit']}</h1>
+								<br></br>
+
+
+								<h:form id="formPerfil" enctype="multipart/form-data">
+
+									<p:growl id="mensagens" showDetail="false" closable="true"
+										life="7000" />
+
+
+									<h:outputLabel value="#{msg['Name1']}" for="inputName"
+										styleClass="textLabel" />
+
+									<h:inputText id="inputName" label="inputName"
+										value="#{newUtl.userName}" a:placeholder="#{msg['Name2']}"
+										styleClass="form-control inputDiv2 size100 textType">
+									</h:inputText>
+
+
+									<br></br>
+
+									<h:outputLabel value="#{msg['Psw1']}" for="inputPassword1"
+										styleClass="textLabel" />
+
+									<br></br>
+
+									<h:panelGroup layout="block" class="row">
+										<h:panelGroup layout="block" class="col-md-6">
+											<h:inputSecret id="inputPassword1" value="#{newUtl.userPws1}"
+												a:placeholder="#{msg['PswR_1']}"   
+												styleClass="form-control inputDiv2" autocomplete="off">
+											</h:inputSecret>
+
+
+										</h:panelGroup>
+										<h:panelGroup layout="block" class="col-md-6">
+											<h:inputSecret id="inputPassword2" value="#{newUtl.userPws2}"
+												a:placeholder="#{msg['PswR_2']}"
+												styleClass="form-control inputDiv2" autocomplete="off">
+											</h:inputSecret>
+
+											<br></br>
+											<br></br>
+										</h:panelGroup>
+
+									</h:panelGroup>
+
+									<br></br>
+									<br></br>
+
+									<h:panelGroup layout="block" styleClass="txtRight">
+
+										<p:commandButton value="#{msg['Btn_save']}"
+											styleClass="btn botaoPeq" action="#{newUtl.guardaEditUser()}"
+											ajax="false">
+											<p:ajax update="formPerfil"></p:ajax>
+										</p:commandButton>
+									</h:panelGroup>
+								</h:form>
+
+								<br></br>
+
+							</h:panelGroup>
+
+
+
+							<h:panelGroup layout="block" class="col-md-1 col-sm-1 col-xs-1">
+							</h:panelGroup>
+
+							<h:panelGroup layout="block"
+								class="col-md-4 col-sm-4 col-xs-10 txtLeft">
+
+
+								<h2>#{msg['Photo']}</h2>
+								<br></br>
+
+
+								<h:form id="formFoto" enctype="multipart/form-data">
+
+
+									<br></br>
+
+									<h:panelGrid columns="3">
+										<o:inputFile id="fotoId" value="#{newUtl.fileImage}"
+											accept="image/*">
+											<f:ajax listener="#{newUtl.readImagem}" render="@form" />
+										</o:inputFile>
+									</h:panelGrid>
+									<o:graphicImage value="#{newUtl.byteImage}" dataURI="true"
+										width="80%" rendered="#{not empty newUtl.byteImage}" />
+
+									<br></br>
+
+								</h:form>
+								<br></br>
+
+
+
+							</h:panelGroup>
+
+						</h:panelGroup>
+
+
+					</h:panelGroup>
+
+
+				</h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+	</h:panelGroup>
+
+	<!--  FIM Modal edit my profil -->
+
+	<!-- Modal reportar esforço-->
+
+	<h:panelGroup layout="block" class="modal fade" id="modalWork"
+		tabindex="-1" role="dialog" aria-labelledby="modalWorkLabel">
+		<h:panelGroup layout="block" class="modal-dialog" role="document">
+			<h:panelGroup layout="block" class="modal-content">
+				<h:panelGroup layout="block" class="modal-header">
+					<p:commandLink value="#{msg['Close']}" class="close closeText"
+						oncomplete="$('#modalWork').modal('hide');" immediate="true">
+					</p:commandLink>
+					<h3>#{msg['Reportar_esforco']}</h3>
+					<!-- 	<h4 class="modal-title" id="Calendar">Calendar</h4> -->
+				</h:panelGroup>
+				<h:panelGroup layout="block" class="modal-body">
+
+
+					<h:form id="reportWorkForm">
+						<p:growl id="mensagens2" showDetail="false" closable="true"
+							life="10000" />
+
+						<h:panelGroup layout="block" class="row">
+							<h:panelGroup layout="block" class="col-md-12">
+								<h:panelGroup layout="block" class="col-md-4">
+									<!-- **************NOME DO USER LOGADO ******************* -->
+									<h:outputLabel for="userLogado" value="#{msg['User']}"
+										styleClass="textLabel" />
+
+									<h:outputLabel id="userLogado"
+										value="#{ userImpl.loggedUser.email}" styleClass="textLabel" />
+								</h:panelGroup>
+								<h:panelGroup layout="block" class="col-md-4">
+									<h:outputLabel for="codProj" value="#{msg['Proj']}"
+										styleClass="textLabel" />
+									<br />
+									<h:outputLabel id="codProj" value="#{activities.projectString}"
+										styleClass="textLabel" />
+								</h:panelGroup>
+								<h:panelGroup layout="block" class="col-md-4">
+									<h:outputLabel for="activitySelect" value="#{msg['Acti']}"
+										styleClass="textLabel" />
+									<br />
+
+									<h:outputLabel id="activitySelect"
+										value=" #{activities.inputNewName}" styleClass="textLabel" />
+								</h:panelGroup>
+
+							</h:panelGroup>
+						</h:panelGroup>
+						<h:panelGroup layout="block" class="space"></h:panelGroup>
+						<h:panelGroup layout="block" class="row">
+							<h:panelGroup layout="block" class="col-md-12">
+								<h:panelGroup layout="block" class="col-md-7">
+									<h:outputLabel for="comment" value="#{msg['Comment']}"
+										styleClass="textLabel" />
+									<h:panelGroup layout="block" class="space1"></h:panelGroup>
+									<h:inputTextarea id="comment" value="#{activities.comment}"
+										a:placeholder="Insira o comentário..."
+										styleClass="inputTextAreaComment">
+										<!-- 	<f:validateLength minimum="3" maximum="250" /> -->
+									</h:inputTextarea>
+
+								</h:panelGroup>
+
+								<h:panelGroup layout="block" class="col-md-5">
+									<h:outputLabel for="timeEffort" value="#{msg['Hours']}"
+										styleClass="textLabel" />
+									<h:panelGroup layout="block" class="space1"></h:panelGroup>
+									<b:touchSpin id="timeEffort" value="#{activities.timeEffort}"
+										min="1" max="#{activities.timeLeft}" step="1"
+										prefix="#{msg['Hours']}" lang="#{internationalization.locale}" />
+								</h:panelGroup>
+							</h:panelGroup>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" class="space"></h:panelGroup>
+						<h:panelGroup layout="block" class="row">
+
+							<h:panelGroup layout="block" class="col-md-12">
+								<h:outputLabel for="fileToAttach" value="#{msg['Anexo']}"
+									styleClass="textLabel" />
+								<h:panelGroup layout="block" class="space1"></h:panelGroup>
+								<p:fileUpload id="fileToAttach"
+									fileUploadListener="#{activities.handleFileUpload}"
+									mode="advanced" dragDropSupport="false" multiple="true"
+									update="messages @this" sizeLimit="100000"
+									fileLimit="#{activities.fileLimit}" sequential="true"
+									allowTypes="/(\.|\/)(gif|jpe?g|png|doc|docx|xls|xlsx|pdf|txt)$/" />
+								<p:growl id="messages" showDetail="true" />
+							</h:panelGroup>
+						</h:panelGroup>
+						<h:panelGroup layout="block" class="row">
+							<h:panelGroup layout="block" class="col-md-12">
+								<h:panelGroup layout="block" class="col-md-8">
+								</h:panelGroup>
+								<h:panelGroup layout="block" class="col-md-2">
+									<p:commandButton value="#{msg['Btn_save']}"
+										actionListener="#{activities.reportEffort()}"
+										styleClass="btn botaoPeq"
+										oncomplete="$('#modalWork').modal('hide');"
+										update="reportWorkForm">
+										<p:ajax update="@this"></p:ajax>
+									</p:commandButton>
+								</h:panelGroup>
+							</h:panelGroup>
+						</h:panelGroup>
+					</h:form>
+
+				</h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+	</h:panelGroup>
+	<!-- FIM Modal reportar esforço-->
+
+</ui:composition>
+</html>

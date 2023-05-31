@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+	<!-- classe Edit -->
+	<h:panelGroup layout="block" class="col-md-4 divwhite">
+
+		<h:panelGroup id="editPanel" layout="block">
+			<h1>#{msg['Edit']}</h1>
+			<br />
+
+
+			<h:form id="editUser">
+				<!-- ************************************Nome ********************************************* -->
+				<h:outputLabel for="name" value="#{msg['Name1']}"
+					styleClass="textLabel" />
+
+				<h:inputText id="name" a:placeholder="#{msg['Name2']}"
+					styleClass="form-control inputDiv2" value="#{admin.name}" />
+
+				<!-- ************************************Palavra chave ********************************************* -->
+
+				<h:panelGroup id="edit2" layout="block" styleClass="row">
+					<h:panelGroup layout="block" styleClass="col-md-12">
+						<h:outputLabel for="inputNewPassword" value="#{msg['Psw1']}"
+							styleClass="textLabel" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="col-md-6">
+						<h:inputSecret id="inputNewPassword"
+							a:placeholder="#{msg['PswE_1']}"
+							styleClass="form-control inputDiv2"
+							value="#{admin.inputNewPassword}" />
+					</h:panelGroup>
+					<!-- ************************************Palavra chave 2********************************************* -->
+					<h:panelGroup layout="block" styleClass="col-md-6">
+						<h:inputSecret id="inputNewPassword2"
+							a:placeholder="#{msg['PswE_1']}"
+							styleClass="form-control inputDiv2"
+							value="#{admin.inputNewPassword2}" />
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass=" col-md-12 txtCenter">
+						<h:outputLabel value="#{msg['Admin_string1']}"
+							styleClass="textLabel" />
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+				<!-- ************************************Função********************************************* -->
+
+
+				<h:outputLabel
+					value="#{msg['Function']}: #{admin.newFunction.designation}"
+					styleClass="textLabel " />
+				<br />
+				<h:selectOneMenu id="newFunctionString"
+					value="#{admin.newFunctionString}" styleClass=" inputDiv2 mymenu">
+
+					<f:selectItems id="function" value="#{admin.functionString}"
+						var="functionName" itemLabel="#{functionName}"
+						itemValue="#{functionName}" />
+				</h:selectOneMenu>
+				<!-- ************************************Ativo********************************************* -->
+
+
+				<h:outputLabel value="#{msg['Ative']}" styleClass="textLabel" />
+
+
+				<p:selectBooleanCheckbox value="#{admin.ative}" id="ative"
+					immediate="true">
+				</p:selectBooleanCheckbox>
+
+
+			</h:form>
+
+		</h:panelGroup>
+		<br />
+
+		<h2>#{msg['Camp2']}</h2>
+
+		<h:panelGroup id="rolePanel" layout="block" styleClass="col-xs-12">
+
+			<br />
+			<h:panelGroup layout="block" styleClass="row">
+
+				<h:panelGroup layout="block" styleClass="col-xs-6">
+					<h:panelGroup id="caixaInative" layout="block" styleClass="row">
+
+						<h:form id="inativeForm">
+							<h:panelGroup id="caixa2" layout="block" styleClass="col-xs-9">
+								<h:outputLabel value="#{msg['Inativos']}" styleClass="textLabel" />
+								<br />
+
+								<p:selectOneListbox value="#{admin.roleInativeString}"
+									id="roleInatives" styleClass="inputDiv2 inputDiv3 textLabel">
+
+									<f:selectItems id="rolesInatives1"
+										value="#{admin.inativeRolesString}" var="name"
+										itemLabel="#{name}" itemValue="#{name}">
+
+									</f:selectItems>
+									<f:ajax listener="#{admin.listenerLeft}" />
+
+								</p:selectOneListbox>
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="col-xs-3 pad50">
+								<p:commandButton styleClass="btnRight" value=" "
+									action="#{admin.addNewRole()}" update="inativeForm ativeForm">
+								</p:commandButton>
+							</h:panelGroup>
+						</h:form>
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+				<h:panelGroup layout="block" styleClass="col-xs-6">
+					<h:panelGroup id="caixaAtive" layout="block" styleClass="row">
+
+						<h:form id="ativeForm">
+							<h:panelGroup id="caixa1" layout="block"
+								styleClass="col-xs-3 pad50">
+								<p:commandButton styleClass="btnLeft" value=" "
+									action="#{admin.deletedNewRole()}"
+									update="inativeForm ativeForm">
+								</p:commandButton>
+
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="col-xs-9">
+								<h:outputLabel value="#{msg['Ativos']}" styleClass="textLabel" />
+								<br />
+
+								<p:selectOneListbox id="rolesAtives"
+									value="#{admin.roleAtiveString}"
+									styleClass="inputDiv2 inputDiv3 textLabel">
+
+									<f:selectItems id="rolesAtives1"
+										value="#{admin.ativeRolesString}" var="nameA"
+										itemLabel="#{nameA}" itemValue="#{nameA}">
+
+									</f:selectItems>
+									<f:ajax listener="#{admin.listenerRight}" />
+
+								</p:selectOneListbox>
+							</h:panelGroup>
+
+						</h:form>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<!-- ************************************botões********************************************* -->
+				<br />
+				<h:panelGroup layout="block" class="col-md-12">
+					<h:panelGroup layout="block" class="space5"></h:panelGroup>
+					<h:panelGroup layout="block" class="col-md-8">
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col-md-4">
+
+						<p:commandButton action="#{admin.saveEditUser()}" form="editUser"
+							value="#{msg['Btn_save']}" styleClass="btn botaoPeq"
+							update="ativeForm:rolesAtives inativeForm:caixa2 userTableAdmin editUser:name editUser:ative editUser:inputNewPassword2 editUser:inputNewPassword editUser:newFunctionString editUser:function">
+						</p:commandButton>
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+
+			</h:panelGroup>
+
+
+
+
+
+		</h:panelGroup>
+
+
+	</h:panelGroup>
+</ui:composition>
+</html>

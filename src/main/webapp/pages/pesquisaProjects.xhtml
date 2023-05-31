@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+	<h:panelGroup layout="block" class="col-md-12">
+		<h:panelGroup layout="block" class="divwhite">
+		
+			<h1>#{msg['Btn_pesquisa']} #{msg['Projs']}</h1>
+
+			<h:panelGroup layout="block" class="row ">
+				<h:form id="form1">
+				
+					<p:growl id="mensagens" showDetail="false" closable="true"
+						life="60000" />
+
+					<h:panelGroup layout="block" class="col-md-4">
+
+						<h:outputLabel for="codeBy" value="#{msg['Proj_code1']}"
+							styleClass="textLabel" />
+						<h:inputText id="codeBy" value="#{projects.codigoProject22}"
+							a:placeholder="" styleClass="form-control inputDiv2">
+						</h:inputText>
+
+						<h:outputLabel for="tituloBy" value="#{msg['Proj_tit1']}"
+							styleClass="textLabel" />
+						<h:inputText id="tituloBy" value="#{projects.title22}"
+							a:placeholder="" styleClass="form-control inputDiv2">
+						</h:inputText>
+
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col-md-4">
+
+						<h:outputLabel for="clienteBy" value="#{msg['Proj_clt1']}"
+							styleClass="textLabel" />
+						<h:inputText id="clienteBy" value="#{projects.client22}"
+							a:placeholder="" styleClass="form-control inputDiv2">
+						</h:inputText>
+
+
+						<h:outputLabel value="#{msg['Proj_status1']}"
+							styleClass="textLabel" />
+						<h:selectOneMenu id="statusProject"
+							value="#{projects.stateDoProjeto22}"
+							styleClass=" inputDiv2 mymenu" required="true">
+							<f:selectItem itemValue="#{msg['Consult_all']}" />
+							<f:selectItems id="statusProjectItem" var="statusProj"
+								value="#{projects.allStateProject}" itemValue="#{statusProj}" />
+						</h:selectOneMenu>
+
+
+
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col-md-2">
+
+						<h:outputLabel value="#{msg['StartDate']}" styleClass="textLabel" />
+						<br></br>
+						<p:calendar styleClass="calendar" value="#{projects.beginDate22}"
+							disabledWeekends="true" locale="#{internationalization.locale}"
+							navigator="false">
+						</p:calendar>
+						<br></br>
+
+						<h:outputLabel value="#{msg['EndDate']}" styleClass="textLabel" />
+						<br></br>
+						<p:calendar styleClass="calendar" value="#{projects.endDate22}"
+							disabledWeekends="true" locale="#{internationalization.locale}"
+							navigator="false">
+						</p:calendar>
+
+
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col-md-2 txtRight">
+
+						<br></br>
+						<br></br>
+						<br></br>
+						<br></br>
+						<p:commandButton value="#{msg['Consult']}"
+							action="#{projects.pesquisaProjects(true)}" styleClass="btn botaoPeq"
+							ajax="false">
+							<p:ajax process="form1" update="form1 formAllProjects"></p:ajax>
+						</p:commandButton>
+					</h:panelGroup>
+				</h:form>
+			</h:panelGroup>
+		</h:panelGroup>
+	</h:panelGroup>
+
+
+</ui:composition>
+</html>

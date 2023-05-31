@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+
+<h:head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+
+
+	<link rel="icon" href="favicon3.ico" />
+
+	<link href="resources/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="resources/css/starter-template.css" rel="stylesheet" />
+	<link href="resources/css/signin.css" rel="stylesheet" />
+	<link href="resources/css/general.css" rel="stylesheet" type="text/css" />
+	<link href="resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="resources/css/font-awesome/css/font-awesome.min.css"
+		rel="stylesheet" type="text/css" />
+	<link href="resources/css/index.css" rel="stylesheet" type="text/css" />
+</h:head>
+
+
+<h:body>
+
+	<h:form id="bb">
+		<f:metadata>
+			<f:viewParam id="tk" name="tk" value="#{newUtl.token}" required="true">
+			</f:viewParam>
+			<f:viewParam id="nr" name="nr" value="#{newUtl.randomNum}" required="true">
+			</f:viewParam>
+		</f:metadata>
+	</h:form>
+
+	<nav class="navbar navbar-default navbar-fixed-top nav-menu"> <h:panelGroup
+		class="container" layout="block">
+		<h:panelGroup class="navbar-header" layout="block">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+				aria-controls="navbar">
+				<span class="sr-only"> <!-- Toggle navigation -->
+				</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+		</h:panelGroup>
+		<h:panelGroup id="navbar" layout="block"
+			class="navbar-collapse collapse dropGrande">
+			<ul class="nav navbar-nav">
+				<li><a href="index.xhtml">#{msg['Nav_inicio']}</a></li>
+			</ul>
+			<!--/.nav-collapse -->
+		</h:panelGroup>
+	</h:panelGroup> </nav>
+
+
+	<h:panelGroup layout="block" class="container">
+
+		<h:panelGroup layout="block" class="row">
+			<h:panelGroup layout="block" class="space2">
+
+				<h:panelGroup layout="block" class="row">
+
+					<h:panelGroup layout="block" class="col-md-4 col-sm-4 col-xs-1"></h:panelGroup>
+
+					<h:panelGroup layout="block"
+						class="col-md-4 col-sm-4 col-xs-10 divwhite">
+
+						<h1>#{msg['RecPsw_tit']}</h1>
+						<br></br>
+
+						<h:form id="form1">
+
+							<p:growl id="mensagens" showDetail="false" closable="true"
+								life="10000" />
+
+							<br></br>
+
+							<h:outputLabel value="#{msg['Psw1']}" for="inputPassword1"
+								styleClass="textLabel" />
+							<!-- * -->
+							<br></br>
+							<!-- * -->
+							<h:inputSecret id="inputPassword1" value="#{newUtl.userPws1}"
+								required="true" a:placeholder="#{msg['PswR_1']}"
+								styleClass="form-control inputDiv2" autocomplete="false">
+							</h:inputSecret>
+							<!-- * -->
+							<br></br>
+							<!-- * -->
+							<h:inputSecret id="inputPassword2" value="#{newUtl.userPws2}"
+								required="true" a:placeholder="#{msg['PswR_2']}"
+								styleClass="form-control inputDiv2" autocomplete="false">
+							</h:inputSecret>
+							
+							<!-- * -->
+							<br></br>
+							<br></br>
+
+							<h:panelGroup layout="block" styleClass="textRight">
+								<p:commandButton value="#{msg['Btn_regista']}"
+									styleClass="btn botaoPeq" action="#{newUtl.criaNovaPassword()}"
+									update="form1">
+								</p:commandButton>
+							</h:panelGroup>
+
+						</h:form>
+
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" class="col-md-4 col-sm-4 col-xs-1" ></h:panelGroup>
+
+					<!-- 				end row -->
+				</h:panelGroup>
+
+			</h:panelGroup>
+
+
+		</h:panelGroup>
+
+	</h:panelGroup>
+
+
+
+	<!-- /.container -->
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="/resources/js/bootstrap.min.js"></script>
+
+</h:body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" itemscope="itemscope" itemtype="http://schema.org/Article">
+
+<h:head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<link rel="icon" href="favicon3.ico" />
+
+	<link href="resources/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="resources/css/starter-template.css" rel="stylesheet" />
+	<link href="resources/css/signin.css" rel="stylesheet" />
+	<link href="resources/css/general.css" rel="stylesheet" type="text/css" />
+	<link href="resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="resources/css/tabelas.css" rel="stylesheet" type="text/css" />
+	<link href="resources/css/font-awesome/css/font-awesome.min.css"
+		rel="stylesheet" type="text/css" />
+	<link href="resources/css/index.css" rel="stylesheet" type="text/css" />
+	
+	<!-- BEGIN Pre-requisites -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+	</script>
+	<script src="https://apis.google.com/js/client:platform.js?onload=start"
+		async="async" defer="defer">
+	</script>
+	<!-- END Pre-requisites -->
+	<!-- Continuing the <head> section -->
+	<script>
+		function start() {
+			gapi.load('auth2', function() {
+				auth2 = gapi.auth2.init({
+					client_id : '373508317606-ag825voellkkhifk43tg4q2h2ov49a4l.apps.googleusercontent.com',
+				// Scopes to request in addition to 'profile' and 'email'
+				//scope: 'additional_scope'
+				});
+			});
+		}
+	</script>
+
+</h:head>
+
+<h:body>
+
+
+	<nav class="navbar navbar-default navbar-fixed-top nav-menu"> <h:panelGroup
+		class="container" layout="block">
+
+	</h:panelGroup> </nav>
+
+
+	<h:panelGroup layout="block" class="container">
+
+		<h:panelGroup layout="block" class="row">
+			<h:panelGroup layout="block" class="space2">
+				<h:panelGroup layout="block" class="row">
+
+					<h:panelGroup layout="block" class="col-md-4 col-sm-4 col-xs-1"></h:panelGroup>
+
+					<h:panelGroup layout="block"
+						class="col-md-4 col-sm-4 col-xs-10 divwhite">
+
+						<h1>#{msg['Login_tit']}</h1>
+
+						<br></br>
+
+						<h:form id="form1">
+							<p:growl id="mensagens" showDetail="false" closable="true"
+								life="10000" />
+
+							<h:outputLabel value="#{msg['Email1']}" for="inputEmail"
+								styleClass="textLabel" />
+
+							<!-- * -->
+							<br></br>
+							<!-- * -->
+							<h:inputText id="inputEmail" name="#{msg['Email1']}"
+								a:placeholder="#{msg['Email2']}" required="true"
+								value="#{login.inputEmail}"
+								styleClass="form-control inputDiv2 size100"
+								requiredMessage="#{msg['ERROR_LOGIN_EMAIL']}"
+								>
+							</h:inputText>
+							<!-- * -->
+							<br></br>
+							<br></br>
+
+							<h:outputLabel value="#{msg['Psw1']}" for="inputPassword"
+								styleClass="textLabel" />
+
+							<!-- * -->
+							<br></br>
+							<!-- * -->
+							<h:inputSecret id="inputPassword" name="#{msg['Psw1']}"
+								a:placeholder="#{msg['Psw2_1']}" required="true"
+								value="#{login.inputPassword}"
+								styleClass="form-control inputDiv2 size100"
+								requiredMessage="#{msg['ERROR_LOGIN_PSW']}"
+								>
+							</h:inputSecret>
+							<!-- * -->
+							<br></br>
+							<br></br>
+
+
+							<h:panelGroup layout="block" class="txtCenter">
+								<p:commandButton value="#{msg['Login']}"
+									styleClass="btn botaoPeq" action="#{login.doLogin()}" update="form1">
+								</p:commandButton>
+							</h:panelGroup>
+							<br></br>
+							<!-- 							<h:panelGroup layout="block" class="txtCenter size100"> -->
+							<!-- 								<a href="accounts.google.com/signin" class="linkGray">#{msg['Login_link_google']}</a> -->
+							<!-- 							</h:panelGroup> -->
+
+							<!-- 							<br></br> -->
+
+							<h:panelGroup layout="block" class="txtLeft size40">
+								<a href="newUser.xhtml" class="linkRed">#{msg['Login_link_novo']}</a>
+							</h:panelGroup>
+
+							<h:panelGroup layout="block" class="txtRight size60">
+								<a href="recuperaPws.xhtml" class="linkRed">#{msg['Login_link_psw']}</a>
+							</h:panelGroup>
+							<br></br>
+							<br></br>
+						</h:form>
+						<!-- Add where you want your sign-in button to render -->
+						<!-- Use an image that follows the branding guidelines in a real app -->
+						<button id="signinButton" class="loginBtn loginBtn--google">Login with Google</button>
+						<script>
+							$('#signinButton').click(function() {
+								// signInCallback defined in step 6.
+								auth2.grantOfflineAccess().then(signInCallback);
+							});
+						</script>
+
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col-md-4 col-sm-4 col-xs-1"></h:panelGroup>
+				</h:panelGroup>
+
+			</h:panelGroup>
+
+
+		</h:panelGroup>
+
+	</h:panelGroup>
+
+
+
+	<!-- /.container -->
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="/resources/js/bootstrap.min.js"></script>
+	<!-- Last part of BODY element in file index.html -->
+	<script>
+	function signInCallback(authResult) {
+	  if (authResult['code']) {
+	
+	    // Hide the sign-in button now that the user is authorized, for example:
+	    $('#signinButton').attr('style', 'display: none');
+	
+	    // Send the code to the server
+	    $.ajax({
+	      type: 'POST',
+	      url: 'http://localhost:8080/ehsilva-vmoreira-projFinal/GoogleAuthentication',
+	      // Always include an `X-Requested-With` header in every AJAX request,
+	      // to protect against CSRF attacks.
+	      headers: {
+	        'X-Requested-With': 'XMLHttpRequest'
+	      },
+	      contentType: 'application/octet-stream; charset=utf-8',
+	      success: function(result) {
+		      if(result=='')
+			  { 
+			      	$('#signinButton').attr('style', '');
+			  }else{
+	    			// similar behavior as clicking on a link
+	    	  		window.location.href = result;
+			  }
+	      },
+	      processData: false,
+	      data: authResult['code']
+	    });
+	  } else {
+	    // There was an error.
+	  }
+	}
+	</script>
+</h:body>
+</html>

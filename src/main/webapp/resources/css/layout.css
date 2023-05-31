@@ -1,0 +1,46 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	background-image: url("./../images/Background.jpg");
+	background-size: cover;
+}
+
+.navbar-fixed-top {
+	z-index: 999;
+}
+
+.nav-menu {
+	background: #670000;
+	border-color: #c4161c;
+}
+
+#navbar a {
+	background: #670000;
+	color: white;
+}
+
+.dropdivider {
+	background: #670000;
+	/*loat:left;*/
+}
+
+.dropPeq {
+	font-size: 15px;
+}
+
+.dropGrande {
+	font-size: 16px;
+}
+
+.espacoNav {
+	/*margin-right: -50px !important;*/
+}
+
+.menuLanguage {
+	color:gray;
+}
+.padNavbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color:white;
+}

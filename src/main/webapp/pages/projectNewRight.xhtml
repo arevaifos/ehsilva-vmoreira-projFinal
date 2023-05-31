@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+
+	<h:panelGroup layout="block" class="col-md-5 ">
+		<h:panelGroup layout="block" class="divwhite">
+
+			<h2>#{msg['Manager']}</h2>
+
+			<h:panelGroup layout="block" class="space5"></h:panelGroup>
+
+			<h:form id="projectFormRight">
+
+				<h:panelGroup id="blockManager1" layout="block" styleClass="row">
+
+					<h:panelGroup layout="block" styleClass="col-md-12">
+						<h:inputText id="idManagerName" value="#{projects.managerName}"
+							styleClass="form-control inputDiv2" disabled="true">
+						</h:inputText>
+
+						<h:inputHidden value="#{projects.managerEmail}">
+						</h:inputHidden>
+
+					</h:panelGroup>
+
+				</h:panelGroup>
+
+				<br></br>
+
+
+				<h:panelGroup id="blockManager3" layout="block" styleClass="row">
+
+					<h:panelGroup layout="block" styleClass="col-md-12">
+
+						<b:dataTable id="userTableA" style-class="tableTxt txtCenter"
+							value="#{projects.allUsers}" var="user" fixedHeader="true"
+							responsive="true" scroll-size="400px" scroll-x="false"
+							page-length="5" page-length-menu="5,10,15" searching="true"
+							customLangUrl="#{msg['Tabelas']}" info="false">
+
+							<b:dataTableColumn label="#{msg['Name1']}"
+								style-class="txtCenter" value="#{user.name}" />
+							<b:dataTableColumn label="#{msg['Email1']}"
+								style-class="txtCenter" value="#{user.email}" />
+							<b:dataTableColumn label="#{msg['Select']}"
+								style-class="txtCenter">
+								<p:commandButton styleClass="selectBtn" value=" "
+									actionListener="#{projects.chooseManager(user.email,user.name)}"
+									rendered="#{projects.choosed==false}"
+									oncomplete="$('#managerModal').modal('show')" class="selectBtn"
+									update="projectFormRight">
+								</p:commandButton>
+
+								<h:commandButton styleClass="cancelBtn" value=" "
+									actionListener="#{projects.canceleChooseManager()}"
+									rendered="#{projects.choosed==true}">
+									<f:ajax render="projectFormRight">
+									</f:ajax>
+								</h:commandButton>
+							</b:dataTableColumn>
+						</b:dataTable>
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+
+			</h:form>
+		</h:panelGroup>
+	</h:panelGroup>
+
+
+</ui:composition>
+</html>

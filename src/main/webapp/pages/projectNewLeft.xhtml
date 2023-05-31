@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+
+
+	<h:panelGroup layout="block" class="col-md-7 divwhite">
+
+		<h1>#{msg['Proj_newTit']}</h1>
+
+		<br />
+		<h:panelGroup id="newProject">
+			<!-- classe lado esquerdo do ecra -->
+			<h:form id="formNewProject1">
+
+				<p:growl id="mensagens" showDetail="false" closable="true"
+					life="10000" />
+
+				<h:panelGroup layout="block" class="row">
+					<h:panelGroup layout="block" styleClass="col-md-6">
+						<h:outputLabel for="inputNewProjCode" value="#{msg['Proj_code1']}"
+							styleClass="textLabel" />
+						<h:inputText id="inputNewProjCode"
+							value="#{projects.codigoProject}"
+							a:placeholder="#{msg['Proj_code2']}"
+							styleClass="form-control inputDiv2">
+						</h:inputText>
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="col-md-6">
+						<h:outputLabel for="inputNewProjClient"
+							value="#{msg['Proj_clt1']}" styleClass="textLabel" />
+						<h:inputText id="inputNewProjClient" value="#{projects.client}"
+							a:placeholder="#{msg['Proj_clt2']}"
+							styleClass="form-control inputDiv2">
+
+						</h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" class="row">
+					<h:panelGroup layout="block" styleClass="col-md-6">
+						<h:outputLabel for="inputNewProjTitle" value="#{msg['Proj_tit1']}"
+							styleClass="textLabel" />
+						<h:inputText id="inputNewProjTitle" value="#{projects.title}"
+							a:placeholder="#{msg['Proj_tit2']}"
+							styleClass="form-control inputDiv2">
+						</h:inputText>
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="col-md-6">
+						<h:outputLabel for="inputNewProjSetor" value="#{msg['Proj_sec1']}"
+							styleClass="textLabel" />
+						<h:inputText id="inputNewProjSetor"
+							value="#{projects.businesssector}"
+							a:placeholder="#{msg['Proj_sec2']}"
+							styleClass="form-control inputDiv2">
+						</h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" class="row">
+					<h:panelGroup layout="block" styleClass="col-md-12">
+						<h:outputLabel for="inputNewProjDescricao"
+							value="#{msg['Proj_dsc1']}" styleClass="textLabel" />
+						<h:inputText id="inputNewProjDescricao"
+							value="#{projects.description}"
+							a:placeholder="#{msg['Proj_dsc2']}"
+							styleClass="form-control inputDiv2">
+						</h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" class="row">
+					<h:panelGroup layout="block" styleClass="col-md-6">
+						<h:outputLabel value="#{msg['Proj_typ1']}" styleClass="textLabel" />
+						<br />
+
+
+						<h:selectOneMenu id="typeProject"
+							value="#{projects.tipoDeProjeto}" styleClass=" inputDiv2 mymenu">
+
+							<f:selectItem itemValue="#{msg['Proj_typ2']}" />
+
+							<f:selectItems id="typeProjectItem" var="tipoProj"
+								value="#{projects.allTypeProject}" itemValue="#{tipoProj}" />
+						</h:selectOneMenu>
+
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="col-md-6">
+						<h:outputLabel for="inputNewProjBudget"
+							value="#{msg['Proj_budg1']}" styleClass="textLabel" />
+						<h:inputText id="inputNewProjBudget" value="#{projects.budget}"
+							a:placeholder="#{msg['Proj_budg2']}"
+							styleClass="form-control inputDiv2"
+							lang="#{internationalization.locale}"
+							converterMessage="#{msg['ERROR_PROJ_010']}"
+							validatorMessage="#{msg['ERROR_PROJ_010']}">
+							<f:convertNumber type="number"
+								locale="#{internationalization.locale}" />
+							<f:validateDoubleRange minimum="0.00" />
+						</h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+				<h:panelGroup id="aProcessar" layout="block" styleClass="row">
+
+					<h:panelGroup layout="block" styleClass="col-md-6">
+
+						<h:outputLabel value="#{msg['StartDate']}" styleClass="textLabel" />
+						<br></br>
+						<p:calendar styleClass="calendar" value="#{projects.beginDate}"
+							disabledWeekends="true" locale="#{internationalization.locale}"
+							navigator="false">
+						</p:calendar>
+
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="col-md-6">
+						<h:outputLabel value="#{msg['EndDate']}" styleClass="textLabel" />
+						<br></br>
+
+						<p:calendar styleClass="calendar" value="#{projects.endDate}"
+							disabledWeekends="true" locale="#{internationalization.locale}"
+							navigator="false">
+						</p:calendar>
+
+						<br />
+
+					</h:panelGroup>
+
+					<br></br>
+					<h:panelGroup layout="block" styleClass="row">
+
+						<h:panelGroup layout="block" styleClass="col-md-6">
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="col-md-6">
+
+							<h:panelGroup layout="block" styleClass="row">
+								<br></br>
+								<h:panelGroup layout="block" styleClass="col-md-3">
+									<h:panelGroup layout="block">
+									</h:panelGroup>
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="col-md-4">
+									<p:commandButton value="#{msg['Btn_back']}"
+										action="beginArea.xhtml" styleClass="btn botaoPeq"
+										ajax="false">
+										<f:actionListener binding="#{projects.init()}" />
+									</p:commandButton>
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="col-md-4">
+									<p:commandButton value="#{msg['Btn_save']}"
+										actionListener="#{projects.saveNewProject}"
+										styleClass="btn botaoPeq" update="formNewProject1"></p:commandButton>
+								</h:panelGroup>
+
+							</h:panelGroup>
+
+						</h:panelGroup>
+					</h:panelGroup>
+				</h:panelGroup>
+
+			</h:form>
+
+			<h:panelGroup layout="block" class="row">
+
+			</h:panelGroup>
+
+
+		</h:panelGroup>
+	</h:panelGroup>
+</ui:composition>
+</html>
